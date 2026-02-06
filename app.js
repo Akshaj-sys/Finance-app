@@ -112,12 +112,14 @@ function updateDashboard() {
     const totalLiabilities = appData.liabilities.reduce((sum, item) => sum + parseFloat(item.amount || 0), 0);
     
     const now = new Date();
-    const currentMonth = now.getMonth();
+    const currentMonth = now.getMonth(); 
     const currentYear = now.getFullYear();
     
     const monthlyExpenses = appData.expenses.reduce((sum, item) => {
         const d = new Date(item.date);
-        if(d.getMonth() === currentMonth && d.getFullYear() === currentYear) {
+        
+        // We check the UTC month/year to match the HTML date picker format exactly
+        if (d.getUTCMonth() === currentMonth && d.getUTCFullYear() === currentYear) {
             return sum + parseFloat(item.amount || 0);
         }
         return sum;
