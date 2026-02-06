@@ -155,10 +155,15 @@ function renderLists() {
         appData[conf.type].sort((a,b) => b.id - a.id).forEach(item => {
             const div = document.createElement('div');
             div.className = 'list-item';
+            
+            // Determine what to show in the main text and subtext
+            let mainText = item.name || item.category; // Use name for assets, category for expenses
+            let subText = item.note || item.type || ''; // Show the note if it exists
+
             div.innerHTML = `
                 <div class="list-info">
-                    <strong>${item.name || item.category}</strong><br>
-                    <small>${item.date || item.type}</small>
+                    <strong>${mainText}</strong><br>
+                    <small>${subText}</small>
                 </div>
                 <div class="right-side">
                     <span class="list-amount">${formatMoney(item[conf.amtField])}</span>
