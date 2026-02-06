@@ -130,14 +130,28 @@ function updateDashboard() {
 }
 
 function showSection(id) {
-    document.querySelectorAll('section').forEach(el => el.classList.add('hidden'));
-    document.getElementById(id).classList.remove('hidden');
-    document.getElementById(id).classList.add('active-section');
-    
-    document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
-    // Set active button based on ID
-    const activeBtn = Array.from(document.querySelectorAll('nav button')).find(b => b.textContent.toLowerCase() === id.toLowerCase());
-    if(activeBtn) activeBtn.classList.add('active');
+    // Hide ALL sections first
+    document.querySelectorAll('section').forEach(section => {
+        section.classList.remove('active-section');
+    });
+
+    // Show ONLY the one we want
+    const target = document.getElementById(id);
+    if (target) {
+        target.classList.add('active-section');
+    }
+
+    // Update the buttons so the user knows which tab they are on
+    document.querySelectorAll('nav button').forEach(btn => {
+        btn.classList.remove('active');
+        // Match button text to section ID
+        if (btn.getAttribute('onclick').includes(id)) {
+            btn.classList.add('active');
+        }
+    });
+
+    // Move view back to the top of the new screen
+    window.scrollTo(0, 0);
 }
 
 function renderLists() {
