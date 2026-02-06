@@ -59,8 +59,23 @@ main {
     margin: 0 auto;
 }
 
-.hidden { display: none; }
-.active-section { display: block; }
+/* Ensure all sections are hidden by default */
+section {
+    display: none; 
+    padding: 1rem 0;
+}
+
+/* Show only the active section */
+section.active-section {
+    display: block;
+}
+
+/* Navigation button styling for the 'Proper' look */
+nav button.active {
+    background-color: var(--accent);
+    border-bottom: 4px solid white; /* Adds a nice visual indicator */
+    font-weight: bold;
+}
 
 /* Dashboard Cards */
 .summary-cards {
